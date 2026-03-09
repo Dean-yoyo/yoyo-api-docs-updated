@@ -4,10 +4,9 @@ info:
   version: 1.2.0
   description: 'Welcome to the **Yoyo Group API documentation**.
 
+Empower your business with Yoyo Group's comprehensive API platform. Our suite of APIs enables you to seamlessly issue, manage, and redeem Vouchers, Coupons, and Gift Cards, transforming how you engage with customers through digital rewards and loyalty solutions.
 
-    This is a consolidated API reference for the main Yoyo services, grouped so Redoc
-    renders them as clear sections in the left navigation, detailed documentation
-    in the center, and request/response examples on the right.
+Designed with developers in mind, Yoyo Group APIs offer a robust, intuitive integration that simplifies complex loyalty and payment ecosystems. We abstract away technical intricacies, providing you with powerful tools that let you focus on what matters most—growing your business and delighting your customers.
 
 
     ## API sections
