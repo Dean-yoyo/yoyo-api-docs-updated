@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Guide</title>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+
+body{
+  font-family: Arial;
+  padding:40px;
+  max-width:900px;
+  margin:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="content"></div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const file = params.get("file");
+
+fetch(file)
+.then(response => response.text())
+.then(text => {
+  document.getElementById("content").innerHTML = marked.parse(text);
+});
+
+</script>
+
+</body>
+</html>
