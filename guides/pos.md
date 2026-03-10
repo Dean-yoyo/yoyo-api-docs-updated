@@ -137,6 +137,10 @@ The tokenInfo request serves multiple purposes:
 
 ➡ [Token Validation](../index.html#operation/post_wigroup-transactionengine-pos-providers-token-info)
 
+<details class="collapsible">
+  <summary>Token Info Request API</summary>
+  <div class="details-body">
+
 ```json
 {
     "id": "POS_ID_GOES_HERE",
@@ -161,11 +165,21 @@ Here’s an example of how to structure the tokenInfo request:
         "trxId": "1"
     }
 }
+```
+</div>
+</details>
 
-  Response Examples
+# Response Examples
 
 This response indicates the details of a coupon associated with the provided wiCode:
-Coupon Response Example
+
+Coupon Response Example:
+
+<details class="collapsible">
+  <summary>Token Info Response</summary>
+  <div class="details-body">
+
+```json
 {
     "vsp": {
         "id": 20016,
@@ -198,8 +212,19 @@ Coupon Response Example
     "responseDesc": "Success"
 }
 
+```
+</div>
+</details>
+
+
 This response provides details about a voucher associated with the provided wiCode:
-Voucher Response Example
+Voucher Response Example:
+
+<details class="collapsible">
+  <summary>Token Info Voucher Response</summary>
+  <div class="details-body">
+
+```json
 
 {
     "vsp": {
@@ -221,8 +246,18 @@ Voucher Response Example
     "responseCode": "-1",
     "responseDesc": "Success"
 }
+```
+</div>
+</details>
+
  This response outlines the details of a gift card associated with the provided wiCode:
- Gift Card Response Example
+ Gift Card Response Example:
+
+ <details class="collapsible">
+  <summary>Token Info Voucher Response</summary>
+  <div class="details-body">
+
+ ```json
 {
     "vsp": {
         "id": 20016,
@@ -246,6 +281,9 @@ Voucher Response Example
 }
 ```
 
+</div>
+</details>
+
 ### Step 3 — Submit Transaction
 
 Once the token is validated, submit the payment transaction. Should the Info API not be implemented, the transaction request can be immediately initiated.
@@ -253,6 +291,10 @@ Once the token is validated, submit the payment transaction. Should the Info API
 ➡ [Create POS Transaction](../index.html#operation/post_wigroup-transactionengine-pos-providers-transaction)
 
 ## Example Request
+
+<details class="collapsible">
+  <summary>Transaction Request</summary>
+  <div class="details-body">
 
 ```json
 {
@@ -291,6 +333,9 @@ Once the token is validated, submit the payment transaction. Should the Info API
     }
 }
 ```
+</div>
+</details>
+
 
 ---
 The merchant identifiers (storeId and retailerId) will be provided by Yoyo. The authentication details found in the header (id and password) will also be provided by Yoyo. The product array list is required for coupons. Please refer to the transaction details for more information.
@@ -301,6 +346,10 @@ The merchant identifiers (storeId and retailerId) will be provided by Yoyo. The 
 - Please refer to "responseDesc" field for more information
 
 ## Example Response
+
+<details class="collapsible">
+  <summary>Transaction Response</summary>
+  <div class="details-body">
 
 ```json
 #Transaction Response Example:
@@ -358,6 +407,9 @@ The merchant identifiers (storeId and retailerId) will be provided by Yoyo. The 
     "responseDesc": "Success"
 }
 ```
+</div>
+</details>
+
 ### Step 4 - Transaction conclusion
 
 Once all outstanding basket values have been settled, an Advice request must be sent to conclude the transaction using the "action": "FINALISE" tag.
@@ -368,6 +420,10 @@ In certain scenarios, a transaction must instead be REVERSED, including when:
 - For e-commerce integrations, when the checkout process times out after a wiCode is processed and is not completed within the specified time frame
 
 ## Example Request:
+
+<details class="collapsible">
+  <summary>Advice Request</summary>
+  <div class="details-body">
 
 ```json
 {
@@ -386,8 +442,15 @@ In certain scenarios, a transaction must instead be REVERSED, including when:
     }
 }
 ```
+</div>
+</details>
+
 
 ## Example Response:
+
+<details class="collapsible">
+  <summary>advice Response</summary>
+  <div class="details-body">
 
 ```json
 
@@ -410,6 +473,9 @@ In certain scenarios, a transaction must instead be REVERSED, including when:
     "responseDesc": "Success"
 }
 ```
+</div>
+</details>
+
 
 ### Transaction History request
 
@@ -440,6 +506,10 @@ The transaction history request provides a summary of the transactions associate
 
 ## Example Request
 
+<details class="collapsible">
+  <summary>Transaction History Request</summary>
+  <div class="details-body">
+    
 ```json
 curl --location --globoff 'https://rad2.wigroup.co:8181/wigroup-transactionengine/pos-providers/transaction-history' \
 --header 'id: {{api_id}}' \
@@ -462,8 +532,15 @@ curl --location --globoff 'https://rad2.wigroup.co:8181/wigroup-transactionengin
     "pageOffset": 0 
 }'
 ```
+</div>
+</details>
 
-### Example Response
+
+### Example 
+
+<details class="collapsible">
+  <summary>Transaction History Response</summary>
+  <div class="details-body">
 
 ```json
 {
@@ -506,6 +583,9 @@ curl --location --globoff 'https://rad2.wigroup.co:8181/wigroup-transactionengin
     "responseDesc": "Success"
 }
 ```
+</div>
+</details>
+
 ## Transaction History V2 request
 
 The transaction history V2 request returns details on a single transaction that have been processed. Transaction history may be linked to a specific retail store and is used to request details of a specific transaction.
@@ -640,6 +720,11 @@ This endpoint is typically called by the POS when a **bill is opened or updated*
 
 ## Example Request
 
+<details class="collapsible">
+  <summary>Create Bill</summary>
+  
+  <div class="details-body">
+
 ```json
 {
   "basketId": "BILL12345",
@@ -649,6 +734,13 @@ This endpoint is typically called by the POS when a **bill is opened or updated*
   "description": "Table 12"
 }
 ```
+</div>
+</details>
+
+
+<details class="collapsible">
+  <summary>Bill Response</summary>
+  <div class="details-body">
 
 ### Example response
 
@@ -673,5 +765,8 @@ This endpoint is typically called by the POS when a **bill is opened or updated*
     <cashierId>19e264b7-7501-490a-b080-e4e079014fa2</cashierId>
 </bill>
 ```
+</div>
+</details>
+
 
 
