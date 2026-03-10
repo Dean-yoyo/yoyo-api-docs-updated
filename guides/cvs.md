@@ -136,6 +136,10 @@ Available methods: GET
 
 # Example request
 
+<details class="collapsible">
+  <summary>GET/couponcampaigns</summary>
+  <div class="details-body">
+
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/couponcampaigns" \
   -H "apiId: {apiId}" \
   -H "apiPassword: {apiPassword}" \
@@ -210,6 +214,8 @@ Available methods: GET
   "responseCode": "-1",
   "responseDesc": "Success"
 ```
+  </div>
+</details>
 
 ### GET /couponcampaigns/{campaignId}
 
@@ -259,6 +265,10 @@ Available methods: GET
 
 
 # Example request
+
+<details class="collapsible">
+  <summary>GET/couponcampaigns/{campaignId}</summary>
+  <div class="details-body">
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/couponcampaigns/{campaignId}" \
   -H "apiId: {apiId}" \
@@ -326,6 +336,8 @@ Available methods: GET
   "responseDesc": "Success"
 }
 ```
+  </div>
+</details>
 
 ## GET /couponcampaigns/{campaignId}/skus
 
@@ -341,6 +353,10 @@ Available methods: GET
 | skus | Array | List of SKUs. Each SKU object contains: sku (String), sku value (Integer), sku brand (String), sku product (String), and product size (String). |  | ✓ |
 
 # Example request
+
+<details class="collapsible">
+  <summary>GET/couponcampaignId/skus</summary>
+  <div class="details-body">
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/couponcampaigns/{campaignId}/skus" \
   -H "apiId: {apiId}" \
@@ -366,6 +382,8 @@ Available methods: GET
   ]
 }
 ```
+  </div>
+</details>
 
 ---
 
@@ -408,6 +426,10 @@ Available methods: POST
 
 # Example request
 
+<details class="collapsible">
+  <summary>POST/IssueCoupon</summary>
+  <div class="details-body">
+
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/coupons?issueWiCode=true" \
   -H "apiId: {apiId}" \
   -H "apiPassword: {apiPassword}" \
@@ -445,6 +467,8 @@ Available methods: POST
   “responseDesc”: "Success"
 }
 ```
+  </div>
+</details>
 
 ### Coupon Transactions
 
@@ -476,6 +500,10 @@ Available methods: GET
 | stateId | Integer | Current transaction state: N (New), P (Processing), F (Failed), SPR (Successful pending recon), S (Successful), RV (Reversed). | ✓ |  |
 
 # Example request
+
+<details class="collapsible">
+  <summary>GET/coupontransctions</summary>
+  <div class="details-body">
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/coupontransactions" \
   -H "apiId: {apiId}" \
@@ -515,6 +543,8 @@ Available methods: GET
   “responseDesc“: "Success"
 }
 ```
+  </div>
+</details>
 
 ### GET /coupontransactions/{id}
 
@@ -543,6 +573,11 @@ Available methods: GET
 
 
 # Example request
+
+<details class="collapsible">
+  <summary>GET/coupontranactionsid</summary>
+  <div class="details-body">
+
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/coupontransactions/{id}" \
   -H "apiId: {apiId}" \
@@ -582,6 +617,8 @@ Available methods: GET
   “responseDesc“: "Success"
 }
 ```
+  </div>
+</details>
 
 ### Giftcards
 This resource is used to issue a giftcard. Depending on how the campaign is setup by the campaign owner, the channel can set the balance and expiry date of the giftcard. A giftcard can be redeemed multiple times.
@@ -623,6 +660,11 @@ Available methods: POST
 | stateId | String | Current state of the gift card. Can also be set in request to issue a deactivated card. States: **A (Active), D (Deactivated), E (Expired), R (Redeemed fully)**. | ✓ | ✓ |
 
 # Example request
+
+
+<details class="collapsible">
+  <summary>POST/issueGiftcard</summary>
+  <div class="details-body">
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/giftcards?issueWiCode=true" \
   -H "apiId: {apiId}" \
@@ -674,6 +716,9 @@ Available methods: POST
   “responseDesc”: "Success"
 }
 ```
+  </div>
+</details>
+
 
 ### Issue a wiCode / Token for a Gift Card
 This resource is used to issue a wicode against giftcard for length of giftcard expiry. A wicode will only be issued if the wiCode field of a particular Giftcard is NULL.
@@ -691,6 +736,11 @@ Available methods: POST
 | stateId | String | Current state of the gift card: **A (Active), D (Deactivated), E (Expired), R (Redeemed fully)**. | ✓ |  |
 
 # Example request
+
+<details class="collapsible">
+  <summary>POST/issueGiftcardWicode</summary>
+  <div class="details-body">
+
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/giftcards/{id}/wicode" \
   -H "id: {id}" \
@@ -715,6 +765,9 @@ Available methods: POST
    "responseDesc": "Success"
 }
 ```
+
+  </div>
+</details>
 
 ### Giftcard Campaigns
 This request returns a list of active campaigns which are linked to the specific channel (issuer interface).
@@ -767,6 +820,10 @@ All requested parameters, except the API credentials, are query parameters.
 | expiryDays | Integer | Default number of days the gift card is valid from issue date. Expiry occurs at midnight after the specified days. |  | ✓ |
 
 # Example request
+
+<details class="collapsible">
+  <summary>GET/giftcardCampaigns</summary>
+  <div class="details-body">
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/giftcardcampaigns" \
   -H "apiId: {apiId}" \
@@ -824,6 +881,10 @@ All requested parameters, except the API credentials, are query parameters.
   “responseDesc“: "Success"
 }
 ```
+
+  </div>
+</details>
+
 
 ### GET /giftcardcampaigns/{id}
 
@@ -915,6 +976,10 @@ Returns a list of **retailers linked to active campaigns on the channel**.
 | description | String | A description of the retailer. |  | ✓ |
 | logoURL | String | The retailer logo URL. |  | ✓ |
 
+<details class="collapsible">
+  <summary>GET/retailers</summary>
+  <div class="details-body">
+
 # Example request
 
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/retailers" \
@@ -923,6 +988,7 @@ Returns a list of **retailers linked to active campaigns on the channel**.
   -H "Content-Type: application/json" \
   -X GET
 ```
+
 
 # Example response
 
@@ -940,6 +1006,8 @@ Returns a list of **retailers linked to active campaigns on the channel**.
   “responseDesc“: "Success"
 }
 ```
+  </div>
+</details>
 
 
 ### Retrieve Merchants Linked to Active Campaigns
@@ -977,6 +1045,10 @@ This resource returns the **collection of all merchants linked to active campaig
 
 # Example request
 
+<details class="collapsible">
+  <summary>GET/merchants</summary>
+  <div class="details-body">
+
 ```curl curl "https://za-vsp-int.wigroup.co/cvs-issuer/rest/merchants" \
   -H "apiId: {apiId}" \
   -H "apiPassword: {apiPassword}" \
@@ -1012,6 +1084,8 @@ This resource returns the **collection of all merchants linked to active campaig
   “responseDesc“: "Success"
 }
 ```
+  </div>
+</details>
 
 ### Redemption callback
 The redemption callback URL provides the YoyoPlatform with a means of notifying third parties that a redemption has occurred. Whenever a transaction containing a redemption request is successfully processed by the wiCode platform, a redemption callback will be POSTed to the configured callback URL.
