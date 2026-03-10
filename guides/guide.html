@@ -1,152 +1,504 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<title>Guide</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guide</title>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 
-<style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/http.min.js"></script>
 
-body{
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  max-width: 900px;
-  margin: auto;
-  padding: 40px;
-  color:#1a1a1a;
-  line-height:1.6;
-}
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --panel:#f8fafc;
+      --link:#2563eb;
+      --code:#0f172a;
+      --accent:#0ea5e9;
+      --sidebar-width: 260px;
+      --radius: 10px;
+    }
 
-/* Headings */
+    * { box-sizing: border-box; }
 
-h1{
-  font-size:36px;
-  margin-top:40px;
-  margin-bottom:10px;
-}
+    html { scroll-behavior: smooth; }
 
-h2{
-  font-size:26px;
-  margin-top:40px;
-  border-bottom:1px solid #eee;
-  padding-bottom:8px;
-}
+    body{
+      margin:0;
+      font-family:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
 
-h3{
-  font-size:20px;
-  margin-top:30px;
-}
+    .layout{
+      display:grid;
+      grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+      gap:0;
+      min-height:100vh;
+    }
 
-/* Paragraph spacing */
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      border-right:1px solid var(--border);
+      background:#fcfdff;
+      padding:24px 18px;
+    }
 
-p{
-  margin:10px 0 16px 0;
-}
+    .sidebar h2{
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin:0 0 14px 0;
+    }
 
-/* Lists */
+    .sidebar a{
+      display:block;
+      text-decoration:none;
+      color:#334155;
+      padding:8px 10px;
+      border-radius:8px;
+      margin-bottom:4px;
+      font-size:14px;
+    }
 
-ul{
-  padding-left:20px;
-  margin-bottom:20px;
-}
+    .sidebar a:hover,
+    .sidebar a.active{
+      background:#eef6ff;
+      color:#0f172a;
+    }
 
-li{
-  margin:6px 0;
-}
+    .content-wrap{
+      min-width:0;
+    }
 
-/* Images */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.95);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--border);
+      padding:14px 28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
 
-img{
-  max-width:100%;
-  margin:20px 0;
-  border-radius:6px;
-}
+    .topbar a{
+      color:var(--link);
+      text-decoration:none;
+      font-weight:600;
+      margin-left:18px;
+    }
 
-/* Tables */
+    .content{
+      max-width:980px;
+      padding:32px 40px 64px;
+    }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin:20px 0;
-  font-size:14px;
-}
+    h1{
+      font-size:40px;
+      line-height:1.1;
+      margin:0 0 16px;
+    }
 
-th{
-  text-align:left;
-  background:#f7f7f7;
-  padding:10px;
-  border-bottom:2px solid #ddd;
-}
+    h2{
+      font-size:28px;
+      margin-top:42px;
+      margin-bottom:14px;
+      padding-bottom:8px;
+      border-bottom:1px solid var(--border);
+    }
 
-td{
-  padding:10px;
-  border-bottom:1px solid #eee;
-}
+    h3{
+      font-size:20px;
+      margin-top:28px;
+      margin-bottom:10px;
+    }
 
-/* Code blocks */
+    p{
+      line-height:1.75;
+      margin:10px 0 16px;
+    }
 
-pre{
-  background:#0f172a;
-  color:#e2e8f0;
-  padding:16px;
-  border-radius:6px;
-  overflow:auto;
-  font-size:13px;
-  line-height:1.4;
-}
+    ul, ol{
+      line-height:1.75;
+      padding-left:22px;
+      margin:10px 0 18px;
+    }
 
-code{
-  font-family: "SFMono-Regular", Consolas, monospace;
-}
+    li{ margin:6px 0; }
 
-/* Inline code */
+    img{
+      max-width:100%;
+      height:auto;
+      border-radius:8px;
+      margin:18px 0 24px;
+      border:1px solid var(--border);
+    }
 
-p code, li code{
-  background:#f1f5f9;
-  padding:2px 6px;
-  border-radius:4px;
-}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px 0 28px;
+      font-size:14px;
+    }
 
-/* Links */
+    th, td{
+      text-align:left;
+      vertical-align:top;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+    }
 
-a{
-  color:#2563eb;
-  text-decoration:none;
-}
+    th{
+      background:#f8fafc;
+      font-weight:600;
+    }
 
-a:hover{
-  text-decoration:underline;
-}
+    a{
+      color:var(--link);
+      text-decoration:none;
+    }
 
-/* Horizontal rules */
+    a:hover{ text-decoration:underline; }
 
-hr{
-  border:none;
-  border-top:1px solid #eee;
-  margin:40px 0;
-}
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:.95em;
+    }
 
+    p code, li code, td code {
+      background:#f1f5f9;
+      padding:2px 6px;
+      border-radius:6px;
+    }
 
-</style>
+    .code-block{
+      position:relative;
+      margin:18px 0 24px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid #111827;
+      background:var(--code);
+    }
 
+    .code-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#111827;
+      color:#cbd5e1;
+      padding:10px 12px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .copy-btn{
+      border:1px solid #334155;
+      background:#0f172a;
+      color:#e2e8f0;
+      border-radius:8px;
+      padding:6px 10px;
+      font-size:12px;
+      cursor:pointer;
+    }
+
+    .copy-btn:hover{
+      background:#1e293b;
+    }
+
+    pre{
+      margin:0;
+      padding:18px;
+      overflow:auto;
+      background:#0f172a !important;
+    }
+
+    .callout{
+      background:#f8fafc;
+      border:1px solid var(--border);
+      border-left:4px solid var(--accent);
+      border-radius:8px;
+      padding:14px 16px;
+      margin:18px 0 24px;
+    }
+
+    .api-tabs{
+      margin:18px 0 24px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .api-tab-buttons{
+      display:flex;
+      gap:0;
+      border-bottom:1px solid var(--border);
+      background:#f8fafc;
+    }
+
+    .api-tab-button{
+      border:0;
+      background:transparent;
+      padding:12px 16px;
+      cursor:pointer;
+      font-weight:600;
+      color:#475569;
+    }
+
+    .api-tab-button.active{
+      background:#fff;
+      color:#0f172a;
+      border-bottom:2px solid var(--accent);
+    }
+
+    .api-tab-panel{
+      display:none;
+    }
+
+    .api-tab-panel.active{
+      display:block;
+    }
+
+    details.collapsible{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:0;
+      margin:18px 0;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    details.collapsible > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:16px 18px;
+      font-weight:600;
+      background:#f8fafc;
+    }
+
+    details.collapsible > summary::-webkit-details-marker{
+      display:none;
+    }
+
+    details.collapsible .details-body{
+      padding:18px;
+    }
+
+    hr{
+      border:none;
+      border-top:1px solid var(--border);
+      margin:32px 0;
+    }
+
+    @media (max-width: 960px){
+      .layout{
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar{
+        display:none;
+      }
+
+      .content{
+        padding:24px 20px 48px;
+      }
+
+      .topbar{
+        padding:12px 18px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>On this page</h2>
+      <nav id="toc"></nav>
+    </aside>
 
-<div id="content"></div>
+    <div class="content-wrap">
+      <div class="topbar">
+        <div><strong>Yoyo Guides</strong></div>
+        <div>
+          <a href="./index.html">Guides</a>
+          <a href="../index.html#api-reference">API Reference</a>
+        </div>
+      </div>
 
-<script>
+      <main class="content" id="content">
+        Loading...
+      </main>
+    </div>
+  </div>
 
-const params = new URLSearchParams(window.location.search);
-const file = params.get("file");
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
 
-fetch(file)
-.then(response => response.text())
-.then(text => {
-  document.getElementById("content").innerHTML = marked.parse(text);
-});
+    marked.setOptions({
+      gfm: true,
+      breaks: false
+    });
 
-</script>
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-");
+    }
 
+    function buildTOC(container) {
+      const toc = document.getElementById("toc");
+      const headings = container.querySelectorAll("h2, h3");
+
+      toc.innerHTML = "";
+
+      headings.forEach((heading) => {
+        if (!heading.id) heading.id = slugify(heading.textContent);
+        const a = document.createElement("a");
+        a.href = "#" + heading.id;
+        a.textContent = heading.textContent;
+        a.className = heading.tagName.toLowerCase() === "h3" ? "toc-h3" : "toc-h2";
+        if (heading.tagName.toLowerCase() === "h3") {
+          a.style.paddingLeft = "22px";
+          a.style.fontSize = "13px";
+        }
+        toc.appendChild(a);
+      });
+    }
+
+    function enhanceCodeBlocks(container) {
+      const pres = container.querySelectorAll("pre");
+
+      pres.forEach((pre) => {
+        const code = pre.querySelector("code");
+        const langClass = code ? [...code.classList].find(c => c.startsWith("language-")) : "";
+        const lang = langClass ? langClass.replace("language-", "") : "code";
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-block";
+
+        const header = document.createElement("div");
+        header.className = "code-header";
+
+        const label = document.createElement("span");
+        label.textContent = lang;
+
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "Copy";
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(code ? code.innerText : pre.innerText);
+            btn.textContent = "Copied";
+            setTimeout(() => btn.textContent = "Copy", 1500);
+          } catch {
+            btn.textContent = "Failed";
+            setTimeout(() => btn.textContent = "Copy", 1500);
+          }
+        });
+
+        header.appendChild(label);
+        header.appendChild(btn);
+
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(header);
+        wrapper.appendChild(pre);
+
+        if (code) hljs.highlightElement(code);
+      });
+    }
+
+    function enhanceDetails(container) {
+      container.querySelectorAll("h2, h3").forEach((heading) => {
+        if (/example|response|request|history|callback|bill/i.test(heading.textContent)) {
+          // leave headings as-is by default; collapsibles are added via markdown HTML blocks
+        }
+      });
+    }
+
+    function buildApiTabs(container) {
+      const tabGroups = container.querySelectorAll(".api-tabs");
+      tabGroups.forEach((group) => {
+        const buttons = group.querySelectorAll(".api-tab-button");
+        const panels = group.querySelectorAll(".api-tab-panel");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const target = button.dataset.tab;
+            buttons.forEach(b => b.classList.remove("active"));
+            panels.forEach(p => p.classList.remove("active"));
+            button.classList.add("active");
+            group.querySelector(`.api-tab-panel[data-tab="${target}"]`).classList.add("active");
+          });
+        });
+      });
+    }
+
+    function markActiveSection() {
+      const links = [...document.querySelectorAll("#toc a")];
+      const headings = links
+        .map(link => document.getElementById(link.getAttribute("href").slice(1)))
+        .filter(Boolean);
+
+      function update() {
+        let current = headings[0];
+        headings.forEach((heading) => {
+          if (heading.getBoundingClientRect().top <= 120) current = heading;
+        });
+
+        links.forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === "#" + current.id);
+        });
+      }
+
+      window.addEventListener("scroll", update, { passive: true });
+      update();
+    }
+
+    if (!file) {
+      document.getElementById("content").innerHTML = "<p>No guide file specified.</p>";
+    } else {
+      fetch(file)
+        .then((response) => {
+          if (!response.ok) throw new Error("Could not load " + file);
+          return response.text();
+        })
+        .then((md) => {
+          const html = marked.parse(md);
+          const content = document.getElementById("content");
+          content.innerHTML = html;
+
+          buildTOC(content);
+          enhanceCodeBlocks(content);
+          enhanceDetails(content);
+          buildApiTabs(content);
+          markActiveSection();
+        })
+        .catch((error) => {
+          document.getElementById("content").innerHTML = "<p>" + error.message + "</p>";
+        });
+    }
+  </script>
 </body>
 </html>
